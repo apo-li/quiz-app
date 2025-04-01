@@ -1,0 +1,20 @@
+{
+  "name": "quiz-app",
+  "version": "1.0.0",
+  "description": "A real-time quiz app, similar to Kahoot.",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon -L server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^16.4.7",
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.13.1"
+  }
+}

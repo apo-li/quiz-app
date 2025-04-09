@@ -1,0 +1,23 @@
+GET http://localhost:3000/users
+###
+
+GET http://localhost:3000/users/67f52c131f50656d7d665f14
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{   
+    "name": "maria",
+    "email": "mariamaria@email.com"
+}
+###
+PATCH http://localhost:3000/users/67f6668970ae1d1d5acd6223
+Content-Type: application/json
+
+{   
+    "email": "ioannidios@mail.com"
+}
+###
+DELETE http://localhost:3000/users/67f6668970ae1d1d5acd6223

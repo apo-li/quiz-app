@@ -23,10 +23,9 @@ const userSchema = new mongoose.Schema({
     
 })
 
-// module.exports = mongoose.model('User', userSchema)
+// module.exports = mongoose.model('User', userSchema)   //gia ylopoihsh xwris classes
 
-
-////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////
 
 ////      ylopoihsh me oop (classes)      ////
 

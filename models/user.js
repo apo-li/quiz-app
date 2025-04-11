@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     },
     quizzes:[{
         type: mongoose.SchemaTypes.ObjectId,
-        //ref: 'UserModel',
+        // ref: 'Quiz',   //or 'QuizModel'? 
         required: true
     }],
     signupDate: {
@@ -23,10 +23,9 @@ const userSchema = new mongoose.Schema({
     
 })
 
-// module.exports = mongoose.model('User', userSchema)
+// module.exports = mongoose.model('User', userSchema)   //gia ylopoihsh xwris classes
 
-
-////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////
 
 ////      ylopoihsh me oop (classes)      ////
 

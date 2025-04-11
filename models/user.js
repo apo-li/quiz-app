@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     },
     quizzes:[{
         type: mongoose.SchemaTypes.ObjectId,
-        //ref: 'UserModel',
+        // ref: 'Quiz',   //or 'QuizModel'? 
         required: true
     }],
     signupDate: {

@@ -1,2 +1,2 @@
 # quiz-app
-A real-time quiz app, similar to Kahoot. 
+A real-time quiz app, currently under constuction. 

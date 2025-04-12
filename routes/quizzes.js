@@ -40,6 +40,7 @@ try {
 // Update a quiz
 router.patch('/:id', async (req, res) => {
 try {
+    req.body.updatedAt =  Date.now();
     const updated = await Quiz.update(req.params.id, req.body);
     if (!updated) return res.status(404).json({ message: 'Quiz not found' });
     res.json(updated);

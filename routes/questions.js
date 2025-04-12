@@ -40,6 +40,7 @@ try {
 // Update a question
 router.patch('/:id', async (req, res) => {
 try {
+    req.body.updatedAt = Date.now();
     const updated = await Question.update(req.params.id, req.body);
     if (!updated) return res.status(404).json({ message: 'Question not found' });
     res.json(updated);

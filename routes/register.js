@@ -36,15 +36,15 @@ router.post('/login', async (req, res) => {
 });
 
 
-// router.get('/protected', isAuth, (req, res) => {
-//     res.send('You are authenticated!');
-// });
+router.get('/protected', isAuth, (req, res) => {
+    res.send('You are authenticated!');
+});
 
-// function isAuth(req, res, next) {
-//     if (req.session.userId) {
-//         return next();
-//     }
-//     res.status(401).send('Not authorized');
-// };
+function isAuth(req, res, next) {
+    if (req.session.userId) {
+        return next();
+    }
+    res.status(401).send('Not authorized');
+};
 
 module.exports = router

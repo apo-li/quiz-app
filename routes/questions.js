@@ -1,6 +1,7 @@
 const express = require ('express')
 const router = express.Router()
 const Question = require ('../models/question')
+// import Question from '../models/question'
 
 // Create a new question
 router.post('/', async (req, res) => {
@@ -40,6 +41,7 @@ try {
 // Update a question
 router.patch('/:id', async (req, res) => {
 try {
+    req.body.updatedAt = Date.now();
     const updated = await Question.update(req.params.id, req.body);
     if (!updated) return res.status(404).json({ message: 'Question not found' });
     res.json(updated);

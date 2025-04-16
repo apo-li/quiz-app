@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
       const savedUser = await user.save();
       res.status(201).json(savedUser);
     } catch (err) {
-      res.status(500).json({ message: 'Error saving quiz', error: err.message });
+      res.status(500).json({ message: 'Error saving user', error: err.message });
     }
 });
 

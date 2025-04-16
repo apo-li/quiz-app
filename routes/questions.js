@@ -1,6 +1,7 @@
 const express = require ('express')
 const router = express.Router()
 const Question = require ('../models/question')
+// import Question from '../models/question'
 
 // Create a new question
 router.post('/', async (req, res) => {

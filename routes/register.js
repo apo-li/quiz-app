@@ -42,11 +42,15 @@ router.post('/login', async (req, res) => {
             return res.status(401).send('Wrong password')
         };
         req.session.userId = user._id;
-        res.status(201).redirect('/protected');
+        res.status(201).redirect('/dashboard');
     } catch (err) {
         res.status(500).json({message: 'Error loggin in', error: err.message});
     }
 });
+
+router.get('/dashboard', (req, res)=>{
+    res.render('dashboard')
+})
 
 
 router.get('/protected', isAuth, (req, res) => {

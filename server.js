@@ -49,10 +49,12 @@ const usersRouter = require('./routes/users')
 const quizzesRouter = require('./routes/quizzes')
 const questionsRouter = require('./routes/questions')
 const registerUser = require('./routes/register')
+const createRouter = require('./routes/create')
 
 app.use('/users', usersRouter)
 app.use('/quizzes', quizzesRouter)
 app.use('/questions', questionsRouter)
 app.use('/', registerUser)
+app.use('/create', createRouter)
 
 app.listen(3000, ()=> console.log('Server Started'))

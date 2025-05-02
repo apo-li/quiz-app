@@ -15,7 +15,7 @@
 
 <body>
     <h2>Create Quiz</h2>
-    <form id="quizForm" method="POST" action="/add-questions/<%=quizId%>">
+    <form id="quizForm"  action="/create/add-questions/<%= id %>" method="POST">
         <div class="container-sm qstn form ">
 
             <label for="question-1">Question 1:</label>
@@ -60,7 +60,7 @@
         </div>
     </form>
     <br>
-
+    <script> const newQuizId = "<%= id %>"; </script>
     <script src="/js/createFront.js"></script>
 </body>
 

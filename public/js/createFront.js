@@ -69,9 +69,9 @@ document.getElementById("quizForm").addEventListener("submit", async (e) => {
     e.preventDefault();
   
     const form = e.target;
-    // const title = form.title.value;
-    // const description = form.description.value;
-  
+    
+    // const newQuizId = "<%= id %>";   //this is passed inside ejs file
+
     const questions = [];
     for (let i = 1; i <= questionCount; i++) {
       questions.push({
@@ -82,11 +82,12 @@ document.getElementById("quizForm").addEventListener("submit", async (e) => {
           form[`option-${i}-3`].value,
           form[`option-${i}-4`].value
         ],
-        correctAnswer: form[`right-answer-${i}`].value
+        correctAnswer: form[`right-answer-${i}`].value,
+        quizId: newQuizId  // const newQuizId is taken from ejs file (uri)
       });
     }
   
-    const response = await fetch("/create/add-questions/:quizId", {
+    const response = await fetch(`/create/add-questions/${newQuizId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ questions })
@@ -96,7 +97,7 @@ document.getElementById("quizForm").addEventListener("submit", async (e) => {
     // const resultDiv = document.getElementById("quizResult");
   
     if (data.success) {
-      console.log("Created quiz:", data.quiz);
+      console.log("Created quiz:", data.message);
     } else {
       console.log(data.message);
     }

@@ -26,7 +26,7 @@ router.post('/', async (req, res)=>{       // getting data from the form "action
 
 router.get('/add-questions/:quizId', (req, res)=>{
     const {quizId} = req.params;
-    res.render('create-add-questions', {quizId})
+    res.render('create-add-questions', {id: quizId})
 })
 
 // router.post('./add-questions', async (req, res)=>{   // getting data from the form through client side script (using fetch)
@@ -44,14 +44,21 @@ router.get('/add-questions/:quizId', (req, res)=>{
 //     }
 // })
 
+router.post('/url/:id', (req, res) => {
+    console.log('Route hit');
+    console.log('params:', req.params);
+    res.send('Check console');
+  });
+
+
 router.post('/add-questions/:quizId', async (req, res)=>{
     try {
         // const { questions } = req.body;
         // console.log(savedQuiz);
-        const {quizId} = req.params;
-        console.log("quiz id: ", quizId)
+        const quizId  = req.params.quizId;
+        console.log("quiz id is now: ", quizId)
         const questionArray = req.body.questions; 
-        console.log(questionArray)
+        // console.log(questionArray)
         // 1. Insert questions (expecting an array of question objects)
         const questionDocs = await Question.insertMany(questionArray); // returns inserted docs
     

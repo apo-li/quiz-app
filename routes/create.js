@@ -9,7 +9,7 @@ router.get('/', (req, res)=>{
     res.render('create', {error: null})
 })
 
-router.post('/', async (req, res)=>{       // getting data from the form "action" and names
+router.post('/', async (req, res)=>{       // getting data from the form "action"
     const { title, description, questions, creator, createdAt, updatedAt } = req.body;
     const creatorId = req.session.userId;
     const quiz = new Quiz(title, description, questions, creatorId, createdAt, updatedAt);
@@ -17,8 +17,6 @@ router.post('/', async (req, res)=>{       // getting data from the form "action
         savedQuiz = await quiz.save();
         console.log(savedQuiz);
         res.status(201).redirect(`/create/add-questions/${savedQuiz._id}`);
-        // maybe I can include quiz id in path?
-        // e.g.  redirect('/newquiz/id/questions')
     } catch (err) {
         res.status(500).json({ message: 'Error saving quiz', error: err.message });
     }
@@ -44,14 +42,7 @@ router.get('/add-questions/:quizId', (req, res)=>{
 //     }
 // })
 
-router.post('/url/:id', (req, res) => {
-    console.log('Route hit');
-    console.log('params:', req.params);
-    res.send('Check console');
-  });
-
-
-router.post('/add-questions/:quizId', async (req, res)=>{
+router.post('/add-questions/:quizId', async (req, res)=>{  //getting data form form through fetch in createFront.js
     try {
         // const { questions } = req.body;
         // console.log(savedQuiz);
@@ -59,11 +50,12 @@ router.post('/add-questions/:quizId', async (req, res)=>{
         console.log("quiz id is now: ", quizId)
         const questionArray = req.body.questions; 
         // console.log(questionArray)
+        
         // 1. Insert questions (expecting an array of question objects)
         const questionDocs = await Question.insertMany(questionArray); // returns inserted docs
     
         const questionIds = questionDocs.map(q => q._id);
-        // const question = new Question(text, answers, correctAnswer, savedQuizId, points, givenTime, createdAt, updatedAt);
+        
         // 2. Create quiz with those question IDs
         req.body.updatedAt =  Date.now();
         req.body.questions = questionIds;

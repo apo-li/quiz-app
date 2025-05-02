@@ -123,7 +123,7 @@ function updateIdsAndNames() {
 
 function updateCorrectDropdown(index) {
     const card = document.querySelectorAll(".qstn")[index];
-    console.log("indexxx = ", index)
+    // console.log("index = ", index)
     if (!card) return;
 
     const options = [

@@ -1,7 +1,7 @@
-body::before{
+body::before {
     content: ' ';
-    position:fixed;
-    width:100%;
+    position: fixed;
+    width: 100%;
     height: 100%;
     opacity: 0.7;
     /* background-image: url('../pics/enhanced-gimp.jpg'); */
@@ -9,12 +9,13 @@ body::before{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 48% 75%;
-    background-attachment:fixed;
-    
+    background-attachment: fixed;
+
 }
-body *{
+
+body * {
     position: relative;
-    font-family:  Poppins, Manrope, Roboto;
+    font-family: Poppins, Manrope, sans-serif;
 
 }
 
@@ -26,13 +27,14 @@ body *{
     background-attachment: fixed;
 } */
 
-.container-sm{
+.container-sm {
     background-color: rgba(240, 248, 255, 0.8);
     border-radius: 15px;
     max-width: 600px;
-    margin: auto ;
-    /* padding-top: 50px;
-    padding-bottom: 50px; */
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* margin: auto ; */
     padding: 50px 25px;
     border: 1px solid rgb(206, 212, 218);
 }
@@ -46,62 +48,76 @@ body *{
 }
 
 
-h1{
+h1 {
     display: grid;
     justify-content: center;
     padding: 50px;
 }
 
-h2{
+h2 {
     max-width: fit-content;
     margin: auto;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
 }
 
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: fit-content;
+    margin: auto;
+    gap: 5px 50px;
+}
 
-.mybtn{
+.mybtn {
     /* margin-top: 20px;
     margin-bottom: 40px;
     margin-right: 50px;
     margin-left: 50px; */
     display: grid;
     justify-content: center;
-    margin:auto;
-    width: 100px;
-    height: 45px;
+    margin: auto;
+    /* flex: 1 1 45%; */
+    /* margin: 0 17%; */
+    /* margin-left: 220px; */
+    width: 150px;
+    /* height: auto; */
     color: white;
     /* background-color: #515C85; */
     background-color: #008196;
     border-radius: 10px;
-    font-size: larger;
+    /* font-size: large; */
+    /* font-weight: 600; */
 }
 
-.quiz-name{
-    max-width:520px;
+.quiz-name {
+    max-width: 520px;
     margin: auto;
     padding-bottom: 50px;
 }
 
-.qstn{
-    max-width:520px;
+.qstn {
+    max-width: 520px;
     margin: auto;
-    
+    margin-bottom: 20px;
+    margin-top: 40px;
+
 }
-.qbox{
+
+.qbox {
     /* max-width: fit-content; */
-    height: calc((1.5em + .75rem + 2px)*2);
+    /* height: calc((1.5em + .75rem + 2px)*2); */
     margin-bottom: 20px;
 
 }
 
-.col{
+.col {
     max-width: fit-content;
     margin: auto;
 }
 
-footer{
+footer {
     max-width: fit-content;
-    margin:auto;
+    margin: auto;
     padding-top: 20px;
 
     /* text-align: center; */
@@ -109,16 +125,10 @@ footer{
 }
 
 .options {
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     max-width: fit-content;
     margin: auto;
     gap: 5px 20px;
-    
+
 }
-
-/* p {
-    max-width: fit-content;
-    margin: auto;
-} */
-

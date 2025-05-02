@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope">  
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">        
-
-    <link rel="stylesheet" href="css/create.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="/css/create.css">
     <title>Buzz - Create Quiz</title>
 </head>
 
@@ -21,7 +21,7 @@
         <h2>Create Quiz</h2>
 
         <div class="form">
-            <form id="quizForm" method="post" action="/create">
+            <form id="quizFormInit" method="post" action="/create">
 
                 <div class="quiz-name">
                     <label for="quizname">Quiz Title:</label>
@@ -30,7 +30,8 @@
 
                 <div class="qstn form">
                     <label for="description">Description:</label>
-                    <textarea type="text" id="description" name="description" class="qbox form-control" required></textarea>
+                    <textarea type="text" id="description" name="description" class="qbox form-control"
+                        required></textarea>
 
                     <!-- <label for="question">Question 1:</label>
                     <textarea type="text" id="question" name="text" class="qbox form-control" required></textarea> -->
@@ -57,7 +58,7 @@
                         </p>
                     </div> -->
                     <!-- to do: make an add another option button -->
-                        <!-- <button type="button" onclick="addOption()">Add Another Option</button> -->
+                    <!-- <button type="button" onclick="addOption()">Add Another Option</button> -->
                 </div>
                 <br>
                 <button type="submit" class="mybtn btn btn-primary"> Next </button>
@@ -68,7 +69,7 @@
         </div>
     </div>
 
-    <script src="js/createFront.js"></script>
+    <script src="/js/createFront.js"></script>
 
 </body>
 

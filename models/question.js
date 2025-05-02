@@ -6,30 +6,27 @@ const questionSchema = new mongoose.Schema({
         required: true
     },
     answers: [{
-        _id: false,
-        text: {
-            type: String,
-            required: true
-        }, 
-        isCorrect:{
-            type: Boolean,
-            required: true
-        }
+        type: String,
+        required: true
     }],
+    correctAnswer: {
+        type: String,
+        required: true
+    },
     quizId: {
         type: mongoose.SchemaTypes.ObjectId, 
-        // ref: 'Quiz',
+        ref: 'Quiz',
         required: true
     },
     points: {
         type: Number,
         required: true,
-        // default: 100
+        default: 100
     },
     givenTime: {
         type: Number,
         required: true,
-        // default: 30
+        default: 30
     },
     createdAt: {
         type: Date,
@@ -46,9 +43,10 @@ const questionSchema = new mongoose.Schema({
 const QuestionModel = mongoose.model('Question', questionSchema)
 
 class Question {
-    constructor(text, answers, quizId, points, givenTime, createdAt, updatedAt) {
+    constructor(text, answers, correctAnswer, quizId, points, givenTime, createdAt, updatedAt) {
         this.text = text
         this.answers = answers
+        this.correctAnswer = correctAnswer
         this.quizId = quizId
         this.points = points
         this.givenTime = givenTime
@@ -60,6 +58,7 @@ class Question {
         const question = new QuestionModel({
             text: this.text,
             answers: this.answers,
+            correctAnswer: this.correctAnswer,
             quizId: this.quizId, 
             points: this.points,
             givenTime: this.givenTime,
@@ -69,6 +68,10 @@ class Question {
         return await question.save();
     }
     
+    static async insertMany(array){
+        return await QuestionModel.insertMany(array);
+    }
+
     static async findAll() {
         return await QuestionModel.find();
     }

@@ -2,11 +2,11 @@
 const Quiz = require('../models/quiz')
 const Question = require('../models/question')
 
-exports.showCreate = (req, res)=>{
+exports.showCreate = (req, res) => {
     res.render('create', {error: null})
 }
 
-exports.create = async (req, res)=>{       // getting data from the form "action"
+exports.create = async (req, res) => {       // getting data from the form "action"
     const { title, description, questions, creator, createdAt, updatedAt } = req.body;
     const creatorId = req.session.userId;
     const quiz = new Quiz(title, description, questions, creatorId, createdAt, updatedAt);
@@ -19,12 +19,12 @@ exports.create = async (req, res)=>{       // getting data from the form "action
     }
 }
 
-exports.showAddQuestions = (req, res)=>{
+exports.showAddQuestions = (req, res) => {
     const {quizId} = req.params;
     res.render('create-add-questions', {id: quizId})
 }
 
-exports.addQuestions = async (req, res)=>{  //getting data form form through fetch in createFront.js
+exports.addQuestions = async (req, res) => {  //getting data form form through fetch in createFront.js
     try {
         // const { questions } = req.body;
         // console.log(savedQuiz);

@@ -3,7 +3,6 @@ const User = require('../models/user');
 
 exports.home = (req, res)=>{
     res.render('home', {error: null})
-    console.log('welcome home')
 }
 
 exports.showRegister = (req, res) => {

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use('/', require('./auth'))
 router.use('/', require('./create'))
-
+router.use('/', require('./host'))
 
 
 module.exports = router;

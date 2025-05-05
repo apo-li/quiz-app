@@ -92,7 +92,7 @@ h2 {
 .quiz-name {
     max-width: 520px;
     margin: auto;
-    padding-bottom: 50px;
+    /* padding-bottom: 50px; */
 }
 
 .qstn {

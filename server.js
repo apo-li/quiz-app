@@ -37,7 +37,7 @@ app.use(session({
   }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24, // 1 day
-    httpOnly: true,
+    httpOnly: true, //dev only
     secure: false, // set to true if using HTTPS
   }
 }));
@@ -45,16 +45,20 @@ app.use(session({
 /////////////////////
 
 ///// routes ///
-const usersRouter = require('./routes/users')
-const quizzesRouter = require('./routes/quizzes')
-const questionsRouter = require('./routes/questions')
-const registerUser = require('./routes/register')
-const createRouter = require('./routes/create')
+
+const routes = require('./routes');
+app.use(routes);
+
+const usersRouter = require('./routes/users')           //admin
+const quizzesRouter = require('./routes/quizzes')       //admin 
+const questionsRouter = require('./routes/questions')   //admin
+// const registerUser = require('./routes/register')
+// const createRouter = require('./routes/create')
 
 app.use('/users', usersRouter)
 app.use('/quizzes', quizzesRouter)
 app.use('/questions', questionsRouter)
-app.use('/', registerUser)
-app.use('/create', createRouter)
+// app.use('/', registerUser)
+// app.use('/create', createRouter)
 
 app.listen(3000, ()=> console.log('Server Started'))

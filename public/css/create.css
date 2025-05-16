@@ -40,12 +40,12 @@ body * {
 }
 
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
     .container-sm {
         max-width: 80%;
         height: auto;
     }
-}
+} */
 
 
 h1 {

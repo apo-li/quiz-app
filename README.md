@@ -1,2 +1,2 @@
 # quiz-app
-A real-time quiz app, currently under constuction. 
+A real-time quiz app, thesis project, currently under construction. 

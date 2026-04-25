@@ -1,13 +1,21 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/user');
 
-exports.home = (req, res)=>{
+exports.showHome = (req, res)=>{
     res.render('home', {error: null})
+}
+exports.showDashboard = (req, res) => {
+    res.render('dashboard', { error: null })
 }
 
 exports.showRegister = (req, res) => {
     res.render('register', { error: null })
 }
+
+exports.showLogin = (req, res) => {
+    res.render('login', { error: null })
+}
+
 
 exports.register = async (req, res) => {
     const { username, password, firstName, lastName, email, quizzes, signupDate } = req.body;
@@ -24,10 +32,6 @@ exports.register = async (req, res) => {
     // res.send('Registered!');
 }
 
-
-exports.showLogin = (req, res) => {
-    res.render('login', { error: null })
-}
 
 exports.login = async (req, res) => {
     const { username, password } = req.body;

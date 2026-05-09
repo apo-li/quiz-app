@@ -19,6 +19,23 @@ exports.create = async (req, res) => {       // getting data from the form "acti
     }
 }
 
+exports.showCreate_v1 = (req, res) => {
+    res.render('create_v1', {error: null})
+}
+
+exports.create_v1 = async (req, res) => {       // getting data from the form "action"
+    const { title, description, questions, creator, createdAt, updatedAt } = req.body;
+    const creatorId = req.session.userId;
+    const quiz = new Quiz(title, description, questions, creatorId, createdAt, updatedAt);
+    try { 
+        const savedQuiz = await quiz.save();
+        console.log(savedQuiz);
+        res.status(201);
+    } catch (err) {
+        res.status(500).json({ message: 'Error saving quiz', error: err.message });
+    }
+}
+
 exports.showAddQuestions = (req, res) => {
     const {quizId} = req.params;
     res.render('create-add-questions', {id: quizId})

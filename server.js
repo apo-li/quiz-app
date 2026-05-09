@@ -55,9 +55,9 @@ const questionsRouter = require('./routes/questions')   //api routes
 // const registerUser = require('./routes/register')
 // const createRouter = require('./routes/create') 
 
-app.use('/users', usersRouter)
-app.use('/quizzes', quizzesRouter)
-app.use('/questions', questionsRouter)
+app.use('/api/users', usersRouter)              //localhost:3000/api/users
+app.use('/api/quizzes', quizzesRouter)
+app.use('/api/questions', questionsRouter)
 // app.use('/', registerUser)
 // app.use('/create', createRouter)
 

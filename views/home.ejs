@@ -6,36 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Syne"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Afacad+Flux">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Manrope:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/home.css">
-    <title>Buzz - Welcome</title>
+    <title>QuizMaster - Home</title>
 </head>
 
 <body>
-    <h1>Welcome to our quiz app!</h1>
+    <div class="logo-container">
+        <img src="./pics/QuizMasterYellow.svg" alt="QuizMaster logo" class="logo">
+    </div>
     <div class="container-sm">
         <h2>Join a game now!</h2>
         <div class="form">
             <form>
                 <div class="form-group">
-                    <label for="Your Name">Your Name</label><br>
-                    <input name = "yourName" type="text" style="max-width: fit-content;" class="form-control" id="Your Name"
-                        placeholder="Your Name">
+                    <!-- <label for="formGroupExampleInput2">Game PIN</label><br> -->
+                    <input type="number" class="form-control" id="game-pin" placeholder="">
+                    <label for="Game PIN">Game PIN</label>
                 </div>
                 <div class="form-group">
-                    <label for="Game PIN">Game PIN</label><br>
-                    <input name="gamePIN" type="number" style="max-width:fit-content;" class="form-control" id="Game PIN"
-                        placeholder="Game PIN">
+                    <!-- <label for="formGroupExampleInput">You Name</label><br> -->
+                    <input type="text" class="form-control" id="your-name" placeholder="">
+                    <label for="Your Name">Your Name</label>
                 </div>
-            <button type="submit" class="mybtn btn btn-primary">Join</button>
             </form>
+            <button type="button" class="mybtn ">JOIN </button>
         </div>
-        <footer> ...or <a href="/login">login</a> to create your own quiz!</footer>
+        <footer> ...or <a href="/login" class="footer-link">log in</a> to create your own quiz!</footer>
     </div>
-    <br><br>
+    <br>
 </body>
 
 </html>

@@ -49,15 +49,15 @@ app.use(session({
 const routes = require('./routes');
 app.use(routes);
 
-const usersRouter = require('./routes/users')           //admin
-const quizzesRouter = require('./routes/quizzes')       //admin 
-const questionsRouter = require('./routes/questions')   //admin
+const usersRouter = require('./routes/users')           //api routes
+const quizzesRouter = require('./routes/quizzes')       //api routes
+const questionsRouter = require('./routes/questions')   //api routes
 // const registerUser = require('./routes/register')
-// const createRouter = require('./routes/create')
+// const createRouter = require('./routes/create') 
 
-app.use('/users', usersRouter)
-app.use('/quizzes', quizzesRouter)
-app.use('/questions', questionsRouter)
+app.use('/api/users', usersRouter)              //localhost:3000/api/users
+app.use('/api/quizzes', quizzesRouter)
+app.use('/api/questions', questionsRouter)
 // app.use('/', registerUser)
 // app.use('/create', createRouter)
 

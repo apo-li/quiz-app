@@ -1,2 +1,2 @@
 # quiz-app
-A real-time quiz app, thesis project, currently under construction. 
+Thesis project. An app for quiz creation and real-time quizzes, currently under construction.

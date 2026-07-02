@@ -24,16 +24,45 @@ exports.showCreate_v1 = (req, res) => {
 }
 
 exports.create_v1 = async (req, res) => {       // getting data from the form "action"
+    // console.log("req.body.question_1", req.body[`question-text-1`]);
+    // const i = 1;
+    // const text = req.body[`question-text-${i}`];
+    // console.log("text=", text);
+    console.log("????? req.body.questions = ", req.body.questions);
     const { title, description, questions, creator, createdAt, updatedAt } = req.body;
+    console.log("Questions", questions);
+    //KALA KRASA
+    // const questionsss = ["6a008e0c85e76e0c4757b9c0"];
     const creatorId = req.session.userId;
-    const quiz = new Quiz(title, description, questions, creatorId, createdAt, updatedAt);
+    const quiz = new Quiz(title, description, questionsss, creatorId, createdAt, updatedAt);
     try { 
         const savedQuiz = await quiz.save();
-        console.log(savedQuiz);
+        console.log("quiz created: ", savedQuiz);
+        console.log("waiting for questions to be saved");
         res.status(201);
     } catch (err) {
         res.status(500).json({ message: 'Error saving quiz', error: err.message });
     }
+
+    // const questions = [ ];
+    // for (let i = 1; i <= numOfQuestions; i++){
+
+    //     const text = req.body.[`question-text-${i}`];
+    //     const numOfOptions;
+    //     const answers = []
+    // console.log("text=", text);
+    //     const question = new Question(text, answers, correctAnswer, quizId, points, givenTime, createdAt, updatedAt);
+        
+    // }
+
+    // questionCard
+    
+
+    // try{
+    //     const savedQuestions = await questions.save();
+    // } catch (err) {
+    //     res.status(500).json({ message: 'Error saving quiz', error: err.message });
+    // }
 }
 
 exports.showAddQuestions = (req, res) => {

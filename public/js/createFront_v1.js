@@ -31,10 +31,10 @@ function renderAll() {
           </svg>
         </a>
       </div>
-      <label for="question-${qIndex + 1}" >Question Text:</label>
+      <label for="question-text-${qIndex + 1}" >Question Text:</label>
       <textarea type="text"
-        id="question-${qIndex + 1}"
-        name="question-${qIndex + 1}"
+        id="question-text-${qIndex + 1}"
+        name="question-text-${qIndex + 1}"
         placeholder="Type your question here"
         class="qbox form-control"
         value="${q.text}"
@@ -84,19 +84,19 @@ function renderAll() {
         </p>
 
         <p class="double-span select-group">
-          <label for="right-answer-${qIndex + 1}">
+          <label for="correct-answer-${qIndex + 1}">
             Select Correct Answer:
           </label>
 
           <select
-            id="right-answer-${qIndex + 1}"
-            name="right-answer-${qIndex + 1}" 
+            id="correct-answer-${qIndex + 1}"
+            name="correct-answer-${qIndex + 1}" 
             class="form-control"
             data-type="correct"
             data-q="${qIndex}"
             required>
 
-            <option value=" " >-- Select correct answer --</option>
+            <option value="">-- Select correct answer --</option>
 
             ${q.options
               .map(
@@ -128,7 +128,7 @@ document.addEventListener("click", (e) => {
   
   //cancel button
   if( e.target.matches(".cancel-btn")) {
-    console.log('cancel');
+    console.log('cancel button clicked');
     window.location.href = "/dashboard";
   }
 
@@ -230,41 +230,59 @@ document.getElementById("add-question").addEventListener("click", () => {
   questioncard.scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
-/////////////////////////////////////////////////////////////////////////////////
 document.getElementById("quizForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+
+const response = await fetch("/create_v1", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ questions })
+});
   
-    const form = e.target;
-    const questions = [];
-    // const newQuizId = "<%= id %>";   //this is passed inside ejs file
-    for (let i = 1; i <= questionCount; i++) {
-      questions.push({
-        text: form[`question-${i}`].value,
-        answers: [
-          form[`option-${i}-1`].value,
-          form[`option-${i}-2`].value,
-          form[`option-${i}-3`].value,
-          form[`option-${i}-4`].value
-        ],
-        correctAnswer: form[`right-answer-${i}`].value,
-        quizId: newQuizId  // const newQuizId is taken from ejs file (uri)
-      });
-    }
+const data = await response.json();
+
+if (data.success) {
+  console.log("Data success:", data.message);
+} else {
+  console.log(data.message);
+}
+});
+
+
+/////////////////////////////////////////////////////////////////////////////////
+// document.getElementById("quizForm").addEventListener("submit", async (e) => {
+//     e.preventDefault();
   
-    // const response = await fetch(`/create/add-questions/${newQuizId}`, {
-    const response = await fetch(`/create_v1`, {
+//     const form = e.target;
+//     const questions = [];
+//     // const newQuizId = "<%= id %>";   //this is passed inside ejs file
+//     for (let i = 1; i <= questionCount; i++) {
+//       questions.push({
+//         text: form[`question-${i}`].value,
+//         answers: [
+//           form[`option-${i}-1`].value,
+//           form[`option-${i}-2`].value,
+//           form[`option-${i}-3`].value,
+//           form[`option-${i}-4`].value
+//         ],
+//         correctAnswer: form[`right-answer-${i}`].value,
+//         quizId: newQuizId  // const newQuizId is taken from ejs file (uri)
+//       });
+//     }
+  
+//     // const response = await fetch(`/create/add-questions/${newQuizId}`, {
+//     const response = await fetch(`/create_v1`, {
     
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ questions })
-    });
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ questions })
+//     });
   
-    const data = await response.json();
+//     const data = await response.json();
   
-    if (data.success) {
-      console.log("Created quiz:", data.message);
-    } else {
-      console.log(data.message);
-    }
-  });
+//     if (data.success) {
+//       console.log("Created quiz:", data.message);
+//     } else {
+//       console.log(data.message);
+//     }
+//   });
 /////////////////////////////////////////////////////////////////////////////////

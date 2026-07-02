@@ -5,7 +5,7 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    answers: [{
+    options: [{
         type: String,
         required: true
     }],
@@ -43,9 +43,9 @@ const questionSchema = new mongoose.Schema({
 const QuestionModel = mongoose.model('Question', questionSchema)
 
 class Question {
-    constructor(text, answers, correctAnswer, quizId, points, givenTime, createdAt, updatedAt) {
+    constructor(text, options, correctAnswer, quizId, points, givenTime, createdAt, updatedAt) {
         this.text = text
-        this.answers = answers
+        this.options = options
         this.correctAnswer = correctAnswer
         this.quizId = quizId
         this.points = points
@@ -57,7 +57,7 @@ class Question {
     async save() {                                                   
         const question = new QuestionModel({
             text: this.text,
-            answers: this.answers,
+            options: this.options,
             correctAnswer: this.correctAnswer,
             quizId: this.quizId, 
             points: this.points,

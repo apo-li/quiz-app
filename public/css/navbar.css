@@ -1,0 +1,9 @@
+.logo{
+    height: 40px;
+    /* margin-right: 10px; */
+}
+
+.navbar{
+    background-color: var(--color-bg);
+    /* background-color: white; */
+}

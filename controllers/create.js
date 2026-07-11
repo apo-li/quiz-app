@@ -1,4 +1,5 @@
 // const express = require('express')
+const User = require('../models/user')
 const Quiz = require('../models/quiz')
 const Question = require('../models/question')
 
@@ -25,7 +26,10 @@ exports.showCreate_v1 = (req, res) => {
 
 //create_v1 
 exports.create_v1 = async (req, res) => {
+    // console.log("0. ", req.body);
+    console.log("NEW REQUEST");
     console.log(req.body);
+
     const {
         title,
         description,
@@ -47,8 +51,9 @@ exports.create_v1 = async (req, res) => {
             createdAt,
             updatedAt
         );
-
+        console.log("1. Saving quiz");
         const savedQuiz = await quiz.save();
+        console.log("2. Quiz saved");
 
         // 2. Build question array from req.body
         const questionArray = [];
@@ -79,20 +84,25 @@ exports.create_v1 = async (req, res) => {
         console.log(questionArray);
 
         // 3. Save questions
+        console.log("3. Inserting questions");
         const questionDocs = await Question.insertMany(questionArray);
+        console.log("4. Questions inserted");
 
-        // 4. Save question ids in quiz
+        // 4. Save question ids in Quiz table
         const questionIds = questionDocs.map(q => q._id);
 
+        console.log("5. Updating quiz");
         await Quiz.update(savedQuiz._id, {
             questions: questionIds,
             updatedAt: Date.now()
         });
+        console.log("6. Quiz updated");
 
-        res.status(201).json({
-            success: true,
-            quizId: savedQuiz._id
-        });
+        // 5. Save quiz id in User table
+        await User.addQuiz(creatorId, savedQuiz._id);
+
+        console.log("7. Sending response");
+        res.status(201).json({ success: true });
 
     } catch (err) {
         console.error(err);

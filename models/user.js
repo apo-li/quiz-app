@@ -86,6 +86,18 @@ class User {
     static async delete(id) {
         return await UserModel.findByIdAndDelete(id);
     }
+
+    static async addQuiz(userId, quizId) {
+        return await UserModel.findByIdAndUpdate(
+            userId,
+            {
+                $addToSet: {
+                    quizzes: quizId
+                }
+            },
+            { new: true }
+        );
+    }
 }
 
 module.exports = User

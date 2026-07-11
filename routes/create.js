@@ -9,5 +9,6 @@ router.get('/create/add-questions/:quizId', createController.showAddQuestions)
 router.post('/create/add-questions/:quizId', createController.addQuestions)
 
 router.get('/create_v1', createController.showCreate_v1)
+router.post('/create_v1', createController.create_v1)
 
 module.exports = router

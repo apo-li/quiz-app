@@ -5,8 +5,8 @@ const Question = require ('../models/question')
 
 // Create a new question
 router.post('/', async (req, res) => {
-    const { text, answers, correctAnswer, quizId, points, givenTime, createdAt, updatedAt } = req.body;
-    const question = new Question(text, answers, correctAnswer, quizId, points, givenTime, createdAt, updatedAt);
+    const { text, options, correctAnswer, quizId, points, givenTime, createdAt, updatedAt } = req.body;
+    const question = new Question(text, options, correctAnswer, quizId, points, givenTime, createdAt, updatedAt);
     try {  
       const savedQuestion = await question.save();
       res.status(201).json(savedQuestion);

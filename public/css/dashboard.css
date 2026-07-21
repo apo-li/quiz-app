@@ -50,6 +50,21 @@ body *{
     /* background-color: white; */
 }
 
+.profile-icon{
+    color: var(--color-pr);
+    height: 1.5em;
+    width: 1.5em;
+}
+.profile-icon:hover{
+    color: var(--color-pr);
+    scale: 1.2;
+    transition: all 0.1s ease;
+}
+
+.nav-item{
+    padding-left: 15px;
+}
+
 .container{
     max-width: 900px;
     margin: auto;
@@ -279,48 +294,9 @@ h2{
   color: #17464D;
   /* font-size: large; */
   /* font-weight: 600; */
-  text-decoration: underline;
-}
-
-.search-click {
-  align-items: center;  
-  border: 1px solid #ccc;
-  outline: none;
-  background-size: 22px;
-  background-position: 13px;
-  border-radius: 57px;
-  /* width: 100%; */
-  max-width: 1000px;
-  height: 50px;
-  padding: 20px 15px;
-  margin: 0 auto;
-  /* margin-right: 15px; */
-  /* margin-left: 15px; */
-  transition: all 0.5s;
-  background-color: rgba(255,255,255,0.75);
-}
-
-
-.search-click:focus {
-  /* width: 100%; */
-  padding-left: 20px;
-  /* position: absolute; */
-
-  border: 1px solid #008196;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.search-click {
-  position: relative;
-  overflow: hidden;
-  height: 30px;
-}
+ }
 
 @media (max-width: 991px) {
-    .search-container{
-        margin-left: 0 !important;
-        max-width: 576px;
-        padding-top: 10px;
-    }
     .navbar-collapse{
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;

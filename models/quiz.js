@@ -70,6 +70,14 @@ class Quiz {
     static async delete(id) {
         return await QuizModel.findByIdAndDelete(id);
     }
+
+    static async findByCreatorId(creatorId) {
+        return await QuizModel.
+                        find().
+                        where("creator").
+                        equals(creatorId).
+                        sort({ createdAt: -1 });
+    }
 }
 
 module.exports = Quiz

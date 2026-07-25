@@ -60,4 +60,15 @@ try {
 }
 });
 
+router.get('/creator/:creatorId', async (req, res) => {
+    try{
+        const foundQuiz = await Quiz.findByCreatorId(req.params.creatorId);
+        res.json(foundQuiz);
+    }
+    catch (err) {
+        res.status(500).json({message: 'Error finding quizzes by creator', error: err.message});
+    }
+})
+
+
 module.exports = router

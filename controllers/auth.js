@@ -1,11 +1,29 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/user');
+const Quiz = require('../models/quiz');
+const dayjs = require("dayjs");
+const relativeTime = require("dayjs/plugin/relativeTime");
+
+dayjs.extend(relativeTime);
 
 exports.showHome = (req, res)=>{
     res.render('home', {error: null})
 }
-exports.showDashboard = (req, res) => {
-    res.render('dashboard', { error: null })
+exports.showDashboard = async (req, res) => {
+    const userId = req.session.userId;
+    const loggedUser = await User.findOne(userId);
+    const quizzes = await Quiz.findByCreatorId(userId);
+
+    const quizCards = quizzes.map(quiz => ({
+        ...quiz.toObject(),
+        createdAgo: dayjs(quiz.createdAt).fromNow()
+    }));
+
+    res.render('dashboard', { 
+        username: loggedUser.firstName , 
+        quizzes: quizCards,
+        error: null 
+    })
 }
 
 exports.showRegister = (req, res) => {

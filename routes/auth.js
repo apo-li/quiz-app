@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const authController = require('../controllers/auth')
+const authController = require('../controllers/auth');
+const User = require('../models/user');
 
 router.get ('/', authController.showHome)
 

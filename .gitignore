@@ -1,10 +1,11 @@
 .env
 .vscode
 node_modules
-test-api.rest
-todo.md
+# test-api.rest
+# todo.md
 rt.html
 rt.js
 rt.ejs
 rt1.ejs
 rt2.ejs
+.dockerignore

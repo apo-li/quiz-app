@@ -18,7 +18,24 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
-mongoose.connect(process.env.DATABASE_URL)
+// mongoose.connect(process.env.DATABASE_URL)
+async function start() {
+  try {
+    await mongoose.connect(process.env.DATABASE_URL);
+
+    console.log("MongoDB connected");
+
+    app.listen(process.env.PORT || 3000, () => {
+      console.log("Server running");
+    });
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
+
+start();
+
 const db = mongoose.connection
 db.on('error', (error)=> console.error(error))
 db.once('open', ()=> console.log('Connected to Database'))

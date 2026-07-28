@@ -1,0 +1,100 @@
+GET http://localhost:3000/protected
+###
+
+GET http://localhost:3000/api/users/68188d97d90e494809535adc
+
+###
+GET http://localhost:3000/api/users
+
+
+###
+
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{   
+    "username": "johndoe",
+    "password": "jd1234",
+    "firstName": "john",
+    "lastName": "doe",
+    "email": "johnd@email.com"
+}
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "jd",
+    "password": "jdjd"
+}
+
+###
+PATCH http://localhost:3000/users/67f7dfb96a241c5c7968f53c
+Content-Type: application/json
+
+{   
+    "email": "mamama@mail.com"
+}
+###
+DELETE http://localhost:3000/api/users/69e760b5a9e9e5ae31f1f062
+
+### ################ ##########################################################################################################
+GET http://localhost:3000/api/quizzes
+###
+
+GET http://localhost:3000/quizzes/67f915d0e95be03528225b6e
+
+###
+
+POST http://localhost:3000/quizzes
+Content-Type: application/json
+
+{   
+    "title": "ttttttitl",
+    "description": "this is my fkn description",
+    "creator": "67f52c131f50656d7d665f15"
+}
+###
+PATCH http://localhost:3000/quizzes/67f915d0e95be03528225b6e
+Content-Type: application/json
+
+{   
+    "title": "ntitle"
+}
+###
+DELETE http://localhost:3000/quizzes/67f525e0ce74f654876e2972
+
+#####################################################################################
+GET http://localhost:3000/api/questions
+###
+
+GET http://localhost:3000/questions/6810d65f8aeed1c0ab1485df
+
+###
+
+POST http://localhost:3000/api/questions
+Content-Type: application/json
+
+{   
+    "text": "whats my name",
+    "options": ["apo","giannis","ssd","sdsd"],
+    "correctAnswer": "apo",
+    "quizId": "67f9132bdab9991e19c93d51",
+    "points": 100,
+    "givenTime": 30
+}
+###
+PATCH http://localhost:3000/questions/6810d65f8aeed1c0ab1485df
+Content-Type: application/json
+
+{   
+    "text": "what is name?",
+    "points": 100
+}
+###
+DELETE http://localhost:3000/questions/67f937ef8fdb6f5c94bab866
+
+
+###
+POST http://localhost:3000/create/add-questions/123123

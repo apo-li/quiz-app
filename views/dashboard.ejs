@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +11,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Manrope:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/dashboard.css" <title>Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Dashboard</title>
 </head>
-
 <body>
     <%- include ('./partials/navbar.ejs') %>
 
@@ -22,18 +21,19 @@
 
             <div class="hero-container">
                 <div class="welcome-container">
-                    <h1>Welcome back, <%= username %> !</h1>
+                    
+                    <h1> <%= message %> <%= username %> !</h1>
                     <!-- <h1>welcome Username</h1> -->
-                    <h5 style="font-weight: 400">Ready to create or host your next quiz?</h5>
+                    <h5 style="font-weight: 400">Ready to create or host your <%= nth %> quiz?</h5>
                 </div>
 
                 <div class="buttons-container">
-                    <button class="btn1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    <button onclick=" location.href = '/create-quiz' ;" class="btn1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16">
                             <path
                                 d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z" />
                         </svg>Create</button>
-                    <button class="btn2">
+                    <button onclick=" location.href = '/host-quiz' ;" class="btn2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-broadcast" viewBox="0 0 16 16">
                             <path
@@ -57,7 +57,7 @@
                                 <%= quiz.title %>
                             </h5>
                             <h6 class="card-subtitle mb-2 text-body-secondary">
-                                <%= quiz.createdAgo %>
+                            Created <%= quiz.createdAgo %>
                             </h6>
                             <p class="card-text">
                                 <%= quiz.description %>

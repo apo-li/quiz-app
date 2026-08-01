@@ -7,20 +7,27 @@ const relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(relativeTime);
 
 exports.showHome = (req, res)=>{
-    res.render('home', {error: null})
+    res.render('home', {error: null});
 }
-exports.showDashboard = async (req, res) => {
-    const userId = req.session.userId;
-    const loggedUser = await User.findOne(userId);
-    const quizzes = await Quiz.findByCreatorId(userId);
 
+exports.showDashboard = async (req, res) => {
+    const {userId} = req.session;
+    const {message} = req.session;
+    // const {nth} = req.session;
+    const loggedUser = await User.findOne(userId);
+    // console.log(loggedUser, userId);
+    const quizzes = await Quiz.findByCreatorId(userId);
+    const nth = (!quizzes.length) ? 'first' : 'next' ;
+    
     const quizCards = quizzes.map(quiz => ({
         ...quiz.toObject(),
         createdAgo: dayjs(quiz.createdAt).fromNow()
     }));
 
-    res.render('dashboard', { 
-        username: loggedUser.firstName , 
+    await res.render('dashboard', { 
+        message: message,
+        nth: nth,
+        username: loggedUser.firstName,  
         quizzes: quizCards,
         error: null 
     })
@@ -40,10 +47,18 @@ exports.register = async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
     const user = new User(username, hashed, firstName, lastName,  email, quizzes, signupDate);
     try {
+        // const usernameAlreadyExists = await User.findByUsername(username);
+        // if (usernameAlreadyExists) {
+        //     throw new Error ("Username already exists");
+        // }
         const savedUser = await user.save();
         // res.status(201).json(savedUser);
-        req.session.userId = user._id;
+        await console.log("savedUser ======", savedUser);
+        req.session.userId = await savedUser._id;
+        req.session.message = 'Welcome';
+        // req.session.nth = 'first';
         res.status(201).redirect('/dashboard');
+        // res.send("savedUser: ", savedUser);
     } catch (err) {
         res.status(500).json({ message: 'Error saving user', error: err.message });
     }
@@ -63,14 +78,16 @@ exports.login = async (req, res) => {
             return res.status(401).send('Wrong password')
         };
         req.session.userId = user._id;
+        req.session.message = 'Welcome back';
+        // req.session.nth = 'next';
         res.status(201).redirect('/dashboard');
     } catch (err) {
         res.status(500).json({message: 'Error loggin in', error: err.message});
     }
 }
 
-// exports.logout = (req, res) => {
-//     req.session.destroy(() => {
-//       res.redirect('/');
-//     });
-//   }
+exports.logout = (req, res) => {
+    req.session.destroy(() => {
+      res.redirect('/');
+    });
+  }

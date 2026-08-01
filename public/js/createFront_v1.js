@@ -119,8 +119,7 @@ function renderAll() {
 // handle events
 //click
 document.addEventListener("click", (e) => {
-    if (
-        e.target.matches("a") ||
+    if ( (e.target.matches("a") && !e.target.matches(".dropdown-item") && !e.target.matches(".nav-link"))  ||
         e.target.matches("svg") ||
         e.target.matches("path")
     )

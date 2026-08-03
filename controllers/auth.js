@@ -13,10 +13,9 @@ exports.showHome = (req, res)=>{
 exports.showDashboard = async (req, res) => {
     const {userId} = req.session;
     const {message} = req.session;
-    // const {nth} = req.session;
     const loggedUser = await User.findOne(userId);
-    // console.log(loggedUser, userId);
-    const quizzes = await Quiz.findByCreatorId(userId);
+    const quizzes = await Quiz.findLastThreeByCreatorId(userId);
+
     const nth = (!quizzes.length) ? 'first' : 'next' ;
     
     const quizCards = quizzes.map(quiz => ({
@@ -53,7 +52,6 @@ exports.register = async (req, res) => {
         // }
         const savedUser = await user.save();
         // res.status(201).json(savedUser);
-        await console.log("savedUser ======", savedUser);
         req.session.userId = await savedUser._id;
         req.session.message = 'Welcome';
         // req.session.nth = 'first';
@@ -79,7 +77,6 @@ exports.login = async (req, res) => {
         };
         req.session.userId = user._id;
         req.session.message = 'Welcome back';
-        // req.session.nth = 'next';
         res.status(201).redirect('/dashboard');
     } catch (err) {
         res.status(500).json({message: 'Error loggin in', error: err.message});

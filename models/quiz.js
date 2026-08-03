@@ -78,6 +78,13 @@ class Quiz {
                         equals(creatorId).
                         sort({ createdAt: -1 });
     }
+    static async findLastThreeByCreatorId(creatorId) {
+        return await QuizModel.
+                        find({}, {}, {limit: 3}).
+                        where("creator").
+                        equals(creatorId).
+                        sort({ createdAt: -1 });
+    }
 }
 
 module.exports = Quiz

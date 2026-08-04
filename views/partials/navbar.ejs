@@ -1,53 +1,56 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-  <div class="container-fluid navbar-container">
-    
-    <!-- 1. Brand / Logo (Far Left) -->
-    <a class="navbar-brand" href="#">
-      <img src="../pics/QuizMaster.svg" alt="logo" class="logo">
-    </a>
+    <div class="container-fluid navbar-container">
 
-    <!-- 2. Right-side Mobile Action Wrapper (Far Right) -->
-    <div class="d-flex align-items-center ms-auto ms-lg-0 order-lg-last">
-      
-      <!-- Profile Icon Dropdown (Always visible) -->
-      <div class="nav-item dropdown me-2 me-lg-0">
-        <a class="nav-link profile-icon p-0" href="#" data-toggle="dropdown" data-bs-toggle="dropdown">
-          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-          </svg>
+        <!-- 1. Brand / Logo (Far Left) -->
+        <a class="navbar-brand" href="#">
+            <img src="../pics/QuizMaster.svg" alt="logo" class="logo">
         </a>
-        <ul class="dropdown-menu dropdown-menu-right dropdown-menu-end">
-          <li><a class="dropdown-item" href="/profile">Profile</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">About</a></li>
-          <li><a class="dropdown-item" href="/logout" style="color: var(--danger)">Log out</a></li>
-        </ul>
-      </div>
 
-      <!-- Hamburger Toggler (Only visible on small screens) -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarQuiz" data-bs-toggle="collapse" data-bs-target="#navbarQuiz" aria-controls="navbarQuiz" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <!-- 2. Right-side Mobile Action Wrapper (Far Right) -->
+        <div class="d-flex align-items-center ms-auto ms-lg-0 order-lg-last">
+
+            <!-- Profile Icon Dropdown (Always visible) -->
+            <div class="nav-item dropdown me-2 me-lg-0">
+                <a class="nav-link profile-icon p-0" href="#" data-toggle="dropdown" data-bs-toggle="dropdown">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                        class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                    </svg>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right dropdown-menu-end">
+                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">About</a></li>
+                    <li><a class="dropdown-item" href="/logout" style="color: var(--danger)">Log out</a></li>
+                </ul>
+            </div>
+
+            <!-- Hamburger Toggler (Only visible on small screens) -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarQuiz"
+                data-bs-toggle="collapse" data-bs-target="#navbarQuiz" aria-controls="navbarQuiz" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </div>
+
+        <!-- 3. Collapsible Navigation Links (Middle on Desktop, Hidden on Mobile) -->
+        <div class="collapse navbar-collapse" id="navbarQuiz">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/dashboard" id="nav-home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/my-quizzes" id="nav-quizzes">Quizzes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="nav-sessions">Sessions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="nav-about">About</a>
+                </li>
+            </ul>
+        </div>
 
     </div>
-
-    <!-- 3. Collapsible Navigation Links (Middle on Desktop, Hidden on Mobile) -->
-    <div class="collapse navbar-collapse" id="navbarQuiz">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" href="/dashboard" id="nav-home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/my-quizzes" id="nav-quizzes">Quizzes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" id="nav-sessions">Sessions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" id="nav-about">About</a>
-        </li>
-      </ul>
-    </div>
-
-  </div>
 </nav>

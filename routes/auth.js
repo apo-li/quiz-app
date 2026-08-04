@@ -13,6 +13,8 @@ router.post('/login', authController.login);
 
 router.get('/dashboard', authController.showDashboard);
 
+router.get('/my-quizzes', authController.showMyQuizzes);
+
 router.get('/logout', authController.logout);
 
 module.exports = router;

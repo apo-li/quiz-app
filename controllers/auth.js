@@ -23,10 +23,32 @@ exports.showDashboard = async (req, res) => {
         createdAgo: dayjs(quiz.createdAt).fromNow()
     }));
 
-    await res.render('dashboard', { 
+    await res.render('user_dashboard', { 
         message: message,
         nth: nth,
         username: loggedUser.firstName,  
+        quizzes: quizCards,
+        error: null 
+    })
+}
+
+exports.showMyQuizzes = async (req, res) => {
+    const {userId} = req.session;
+    const {message} = req.session;
+    // const loggedUser = await User.findOne(userId);
+    const quizzes = await Quiz.findByCreatorId(userId);
+
+    // const nth = (!quizzes.length) ? 'first' : 'next' ;
+    
+    const quizCards = quizzes.map(quiz => ({
+        ...quiz.toObject(),
+        createdAgo: dayjs(quiz.createdAt).fromNow()
+    }));
+
+    await res.render('user_myQuizzes', { 
+        message: message,
+        // nth: nth,
+        // username: loggedUser.firstName,  
         quizzes: quizCards,
         error: null 
     })

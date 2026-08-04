@@ -20,12 +20,12 @@ const Question = require('../models/question')
 //     }
 // }
 
-exports.showCreate_v1 = (req, res) => {
-    res.render('create_v1', { error: null })
+exports.showCreate = (req, res) => {
+    res.render('create', { error: null })
 }
 
 //create_v1 
-exports.create_v1 = async (req, res) => {
+exports.create = async (req, res) => {
     const {
         title,
         description,

@@ -4,7 +4,7 @@ const Quiz = require('../models/quiz')
 const Question = require('../models/question')
 
 exports.showCreate = (req, res) => {
-    res.render('create', { error: null })
+    res.render('user/create', { error: null })
 }
 
 exports.create = async (req, res) => {

@@ -8,20 +8,25 @@ exports.showHost = async (req, res) => {
     // for (i=0; i<2; i++){
     //     const foundQuestion+i = await Question.findOne(questions[i])
     // }
-    const foundQuestion = await Question.findOne(questions[0]);
-    const {text} = foundQuestion;
-    const {answers} = foundQuestion;
+
+    const foundQuestions = await Question.findOne(questions[1]);
+
+    // const {answers} = foundQuestion;
     // for (i=0; i<4; i++){
         
     // }
 
-    res.render('host', 
+    res.render('user/host', 
         {
         id: quizId, 
         title: title, 
         desc: description, 
-        creator: creator, 
-        questionText: text, 
-        answer1: answers[0]
+        creator: creator,
+        questions: questions,
+        questionText: foundQuestions.text,
+        questionAns: foundQuestions.options
+        // answer1: answers[0]
     })
 }
+
+//just experimenting with ejs yet

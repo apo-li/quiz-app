@@ -16,9 +16,9 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// mongoose.connect(process.env.DATABASE_URL)
 async function start() {
   try {
     await mongoose.connect(process.env.DATABASE_URL);
@@ -60,23 +60,10 @@ app.use(session({
   }
 }));
 
-/////////////////////
 
 ///// routes ///
 
 const routes = require('./routes');
 app.use(routes);
-
-const usersRouter = require('./routes/users')           //api routes
-const quizzesRouter = require('./routes/quizzes')       //api routes
-const questionsRouter = require('./routes/questions')   //api routes
-// const registerUser = require('./routes/register')
-// const createRouter = require('./routes/create') 
-
-app.use('/api/users', usersRouter)              //localhost:3000/api/users
-app.use('/api/quizzes', quizzesRouter)
-app.use('/api/questions', questionsRouter)
-// app.use('/', registerUser)
-// app.use('/create', createRouter)
 
 app.listen(3000, ()=> console.log('Server Started'))

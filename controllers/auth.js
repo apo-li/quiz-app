@@ -23,7 +23,7 @@ exports.showDashboard = async (req, res) => {
         createdAgo: dayjs(quiz.createdAt).fromNow()
     }));
 
-    await res.render('user_dashboard', { 
+    await res.render('user/dashboard', { 
         message: message,
         nth: nth,
         username: loggedUser.firstName,  
@@ -45,7 +45,7 @@ exports.showMyQuizzes = async (req, res) => {
         createdAgo: dayjs(quiz.createdAt).fromNow()
     }));
 
-    await res.render('user_myQuizzes', { 
+    await res.render('user/myQuizzes', { 
         message: message,
         // nth: nth,
         // username: loggedUser.firstName,  

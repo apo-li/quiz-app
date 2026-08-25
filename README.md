@@ -1,2 +1,4 @@
-# quiz-app
-Thesis project. An app for quiz creation and real-time quizzes, currently under construction.
+# QuizMaster
+Thesis project, currently under construction
+
+**Concept:** Real-time multiplayer quiz platform supporting live quiz sessions, leaderboards and concurrent users

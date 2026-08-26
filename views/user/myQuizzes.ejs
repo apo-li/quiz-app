@@ -35,18 +35,22 @@
                             <th>Questions</th>
 
                             <th>Actions</th>
+                            <th>Date</th>
+
                         </tr>
                     </thead>
                     <tbody id="interviews-body">
 
                         <% quizzes.forEach(quiz=> { %>
                             <tr> 
-                                <td> <b> <%= quiz.title%> </b> - <em> created <%= quiz.createdAgo %> </em> </td>
+                                <td style="font-size:medium;"> <b> <%= quiz.title%> </b> </td>
                                 <td> <%= quiz.description %> </td>
                                 <!-- <td>  </td> -->
-                                <td> num </td>
+                                <td> <%= quiz.numOfQuestions %> questions </td>
 
                                 <td> buttons </td>
+                                <td style="color: grey; text-wrap: nowrap;"> <em> <%= quiz.createdAtFormat %> </em> </td>
+
                             </tr>
                         <% }) %>
 

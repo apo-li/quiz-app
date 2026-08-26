@@ -42,7 +42,9 @@ exports.showMyQuizzes = async (req, res) => {
     
     const quizCards = quizzes.map(quiz => ({
         ...quiz.toObject(),
-        createdAgo: dayjs(quiz.createdAt).fromNow()
+        createdAgo: dayjs(quiz.createdAt).fromNow(),
+        createdAtFormat: dayjs(quiz.createdAt).format("DD-MM-YYYY"),
+        numOfQuestions: quiz.questions.length
     }));
 
     await res.render('user/myQuizzes', { 

@@ -23,6 +23,17 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    emailVerified: {
+        type: Boolean,
+        required: true,
+        default: 'false'
+    },
+    verificationToken: {
+        type: String
+    },
+    verificationTokenExpires: {
+        type: Date
+    },
     quizzes:[{
         type: mongoose.SchemaTypes.ObjectId,
         // ref: 'Quiz',   //or 'QuizModel'? 
@@ -33,8 +44,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     }
-    // quizzes: [mongoose.SchemaTypes.ObjectId]
-    
 })
 
 // module.exports = mongoose.model('User', userSchema)   //gia ylopoihsh xwris classes
@@ -46,12 +55,15 @@ const userSchema = new mongoose.Schema({
 const UserModel = mongoose.model('User', userSchema)
 
 class User {
-    constructor(username, password, firstName, lastName, email, quizzes, signupDate) {
+    constructor(username, password, firstName, lastName, email, emailVerified, verificationToken, verificationTokenExpires, quizzes, signupDate) {
         this.username = username
         this.password = password
         this.firstName = firstName
         this.lastName = lastName
         this.email = email
+        this.emailVerified = emailVerified
+        this.verificationToken = verificationToken
+        this.verificationTokenExpires = verificationTokenExpires
         this.quizzes = quizzes
         this.signupDate = signupDate
     }
@@ -63,6 +75,9 @@ class User {
             firstName: this.firstName,
             lastName: this.lastName,
             email: this.email,
+            emailVerified: this.emailVerified,
+            verificationToken: this.verificationToken,
+            verificationTokenExpires: this.verificationTokenExpires,
             quizzes: this.quizzes, 
             signupDate: this.signupDate 
         })
@@ -81,6 +96,13 @@ class User {
         return await UserModel.findOne({username: userNameToFind})
     } 
     
+    static async findByVerificationToken(verificationToken){
+        return await UserModel.findOne({
+            verificationToken: verificationToken,
+            verificationTokenExpires: { $gt: Date.now() }
+        })
+    }
+
     static async update(id, data) {
         return await UserModel.findByIdAndUpdate(id, data, { new: true });
     }

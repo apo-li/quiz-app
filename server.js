@@ -60,7 +60,6 @@ app.use(session({
   }
 }));
 
-
 ///// routes ///
 
 const routes = require('./routes');

@@ -17,4 +17,6 @@ router.get('/my-quizzes', authController.showMyQuizzes);
 
 router.get('/logout', authController.logout);
 
+router.get('/verify-email/:token', authController.showEmailVerified);
+
 module.exports = router;

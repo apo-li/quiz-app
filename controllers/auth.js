@@ -1,6 +1,8 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const User = require('../models/user');
 const Quiz = require('../models/quiz');
+const transporter = require('../utils/email');
 const dayjs = require("dayjs");
 const relativeTime = require("dayjs/plugin/relativeTime");
 
@@ -66,15 +68,18 @@ exports.showLogin = (req, res) => {
 
 
 exports.register = async (req, res) => {
-    const { username, password, firstName, lastName, email, quizzes, signupDate } = req.body;
+    const { username, password, firstName, lastName, email, emailVerified, quizzes, signupDate } = req.body;
     const hashed = await bcrypt.hash(password, 10);
-    const user = new User(username, hashed, firstName, lastName,  email, quizzes, signupDate);
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationTokenExpires = Date.now() + 60 * 60 * 1000;  //expires in 1 hour
+    const user = new User(username, hashed, firstName, lastName,  email, emailVerified, verificationToken, verificationTokenExpires, quizzes, signupDate);
     try {
         // const usernameAlreadyExists = await User.findByUsername(username);
         // if (usernameAlreadyExists) {
         //     throw new Error ("Username already exists");
         // }
         const savedUser = await user.save();
+        
         // res.status(201).json(savedUser);
         req.session.userId = await savedUser._id;
         req.session.message = 'Welcome';
@@ -85,6 +90,14 @@ exports.register = async (req, res) => {
         res.status(500).json({ message: 'Error saving user', error: err.message });
     }
     // res.send('Registered!');
+    const verificationUrl = `http:localhost:3000/verify-email/${verificationToken}`; 
+
+    await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Verify your Quiz App email',
+        text: `Please verify your email by clicking this link: ${verificationUrl}`
+    });
 }
 
 
@@ -111,4 +124,25 @@ exports.logout = (req, res) => {
     req.session.destroy(() => {
       res.redirect('/');
     });
-  }
+}
+
+exports.showEmailVerified = async (req, res) => {
+    try {
+        const user = await User.findByVerificationToken(req.params.token);
+
+        if (!user) {
+            return res.status(400).send('Invalid or expired verification link.');
+        }
+
+        user.emailVerified = true;
+        user.verificationToken = undefined;
+        user.verificationTokenExpires = undefined;
+
+        await user.save();
+        res.status(200).render('emailVerified');
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Something went wrong.');
+    }
+}

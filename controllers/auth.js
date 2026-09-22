@@ -162,7 +162,7 @@ exports.showEmailVerified = async (req, res) => {
         user.verificationTokenExpires = undefined;
 
         await user.save();
-        res.status(200).render('emailVerified');
+        res.status(200).render('user/emailVerified');
 
     } catch (err) {
         console.error(err);

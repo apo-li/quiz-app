@@ -68,18 +68,56 @@ exports.showLogin = (req, res) => {
 
 
 exports.register = async (req, res) => {
-    const { username, password, firstName, lastName, email, emailVerified, quizzes, signupDate } = req.body;
+    const { username, password, firstName, lastName, email } = req.body;
     const hashed = await bcrypt.hash(password, 10);
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const verificationTokenExpires = Date.now() + 60 * 60 * 1000 * 24 * 3;  //expires in 3 days
-    const user = new User(username, hashed, firstName, lastName,  email, emailVerified, verificationToken, verificationTokenExpires, quizzes, signupDate);
+    const user = new User({
+        username, 
+        password: hashed, 
+        firstName, 
+        lastName,  
+        email, 
+        verificationToken, 
+        verificationTokenExpires
+    });
+
     try {
-        // const usernameAlreadyExists = await User.findByUsername(username);
-        // if (usernameAlreadyExists) {
-        //     throw new Error ("Username already exists");
-        // }
         const savedUser = await user.save();
         
+        // res.send('Registered!');
+        const appDomain = process.env.APP_DOMAIN;
+        const verificationUrl = `${appDomain}/verify-email/${verificationToken}`; 
+        console.log(verificationUrl);
+        await transporter.sendMail({
+            from: {
+                name: 'QuizMaster',
+                address: process.env.EMAIL_USER
+            },
+            to: email,
+            subject: 'Verify your QuizMaster email',
+            text: `Welcome to Quiz App!
+
+                Please verify your email address by clicking this link:
+                ${verificationUrl}
+
+                This link will expire in 1 hour.`,
+
+            html: `
+                <h2>Welcome to Quiz App!</h2>
+
+                <p>Thanks for signing up. Please verify your email address by clicking the button below:</p>
+
+                <p>
+                    <a href="${verificationUrl}">Verify my email</a>
+                </p>
+
+                <p>This verification link will expire in 3 days.</p>
+
+                <p>If you didn't create an account, you can safely ignore this email.</p>
+            `
+        });
+
         // res.status(201).json(savedUser);
         req.session.userId = savedUser._id;
         req.session.message = 'Welcome';
@@ -89,38 +127,7 @@ exports.register = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: 'Error saving user', error: err.message });
     }
-    // res.send('Registered!');
-    const appDomain = process.env.APP_DOMAIN;
-    const verificationUrl = `${appDomain}/verify-email/${verificationToken}`; 
-    console.log(verificationUrl);
-    await transporter.sendMail({
-        from: {
-            name: 'QuizMaster',
-            address: process.env.EMAIL_USER
-        },
-        to: email,
-        subject: 'Verify your QuizMaster email',
-        text: `Welcome to Quiz App!
-
-            Please verify your email address by clicking this link:
-            ${verificationUrl}
-
-            This link will expire in 1 hour.`,
-
-        html: `
-            <h2>Welcome to Quiz App!</h2>
-
-            <p>Thanks for signing up. Please verify your email address by clicking the button below:</p>
-
-            <p>
-                <a href="${verificationUrl}">Verify my email</a>
-            </p>
-
-            <p>This verification link will expire in 3 days.</p>
-
-            <p>If you didn't create an account, you can safely ignore this email.</p>
-        `
-        });
+    
     }
 
 
@@ -167,5 +174,20 @@ exports.showEmailVerified = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send('Something went wrong.');
+    }
+}
+
+exports.showForgotPassword = (req, res) => {
+    res.render('forgotPassword', { error: null })
+}
+
+exports.forgotPassword = async (req, res) => {
+    const {email} = req.body;
+    try{ 
+        const user = await User.findByEmail(email);
+        // to be continued
+    }
+    catch {
+        
     }
 }

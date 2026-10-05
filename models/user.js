@@ -26,12 +26,18 @@ const userSchema = new mongoose.Schema({
     emailVerified: {
         type: Boolean,
         required: true,
-        default: 'false'
+        default: false
     },
     verificationToken: {
         type: String
     },
     verificationTokenExpires: {
+        type: Date
+    },
+    resetPasswordToken: {
+        type: String
+    },
+    resetPasswordTokenExpires: {
         type: Date
     },
     quizzes:[{
@@ -55,7 +61,20 @@ const userSchema = new mongoose.Schema({
 const UserModel = mongoose.model('User', userSchema)
 
 class User {
-    constructor(username, password, firstName, lastName, email, emailVerified, verificationToken, verificationTokenExpires, quizzes, signupDate) {
+    constructor({
+        username, 
+        password, 
+        firstName, 
+        lastName, 
+        email, 
+        emailVerified, 
+        verificationToken, 
+        verificationTokenExpires, 
+        resetPasswordToken, 
+        resetPasswordTokenExpires, 
+        quizzes, 
+        signupDate
+    }) {
         this.username = username
         this.password = password
         this.firstName = firstName
@@ -64,6 +83,8 @@ class User {
         this.emailVerified = emailVerified
         this.verificationToken = verificationToken
         this.verificationTokenExpires = verificationTokenExpires
+        this.resetPasswordToken = resetPasswordToken
+        this.resetPasswordTokenExpires = resetPasswordTokenExpires
         this.quizzes = quizzes
         this.signupDate = signupDate
     }
@@ -78,6 +99,8 @@ class User {
             emailVerified: this.emailVerified,
             verificationToken: this.verificationToken,
             verificationTokenExpires: this.verificationTokenExpires,
+            resetPasswordToken: this.resetPasswordToken,
+            resetPasswordTokenExpires: this.resetPasswordTokenExpires,
             quizzes: this.quizzes, 
             signupDate: this.signupDate 
         })
@@ -90,6 +113,10 @@ class User {
 
     static async findOne(id) {
         return await UserModel.findById(id)
+    }
+
+    static async findByEmail(emailToFind) {
+        return await UserModel.findOne({email: emailToFind})
     }
 
     static async findByUsername(userNameToFind){

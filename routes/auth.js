@@ -19,4 +19,7 @@ router.get('/logout', authController.logout);
 
 router.get('/verify-email/:token', authController.showEmailVerified);
 
+router.get('/forgot-password', authController.showForgotPassword);
+router.post('/forgot-password', authController.forgotPassword);
+
 module.exports = router;

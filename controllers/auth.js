@@ -8,40 +8,40 @@ const relativeTime = require("dayjs/plugin/relativeTime");
 
 dayjs.extend(relativeTime);
 
-exports.showHome = (req, res)=>{
-    res.render('home', {error: null});
+exports.showHome = (req, res) => {
+    res.render('home', { error: null });
 }
 
 exports.showDashboard = async (req, res) => {
-    const {userId} = req.session;
-    const {message} = req.session;
+    const { userId } = req.session;
+    const { message } = req.session;
     const loggedUser = await User.findOne(userId);
     const quizzes = await Quiz.findLastThreeByCreatorId(userId);
 
-    const nth = (!quizzes.length) ? 'first' : 'next' ;
-    
+    const nth = (!quizzes.length) ? 'first' : 'next';
+
     const quizCards = quizzes.map(quiz => ({
         ...quiz.toObject(),
         createdAgo: dayjs(quiz.createdAt).fromNow()
     }));
 
-    await res.render('user/dashboard', { 
+    await res.render('user/dashboard', {
         message: message,
         nth: nth,
-        username: loggedUser.firstName,  
+        username: loggedUser.firstName,
         quizzes: quizCards,
-        error: null 
+        error: null
     })
 }
 
 exports.showMyQuizzes = async (req, res) => {
-    const {userId} = req.session;
-    const {message} = req.session;
+    const { userId } = req.session;
+    const { message } = req.session;
     // const loggedUser = await User.findOne(userId);
     const quizzes = await Quiz.findByCreatorId(userId);
 
     // const nth = (!quizzes.length) ? 'first' : 'next' ;
-    
+
     const quizCards = quizzes.map(quiz => ({
         ...quiz.toObject(),
         createdAgo: dayjs(quiz.createdAt).fromNow(),
@@ -49,12 +49,12 @@ exports.showMyQuizzes = async (req, res) => {
         numOfQuestions: quiz.questions.length
     }));
 
-    await res.render('user/myQuizzes', { 
+    await res.render('user/myQuizzes', {
         message: message,
         // nth: nth,
         // username: loggedUser.firstName,  
         quizzes: quizCards,
-        error: null 
+        error: null
     })
 }
 
@@ -73,21 +73,21 @@ exports.register = async (req, res) => {
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const verificationTokenExpires = Date.now() + 60 * 60 * 1000 * 24 * 3;  //expires in 3 days
     const user = new User({
-        username, 
-        password: hashed, 
-        firstName, 
-        lastName,  
-        email, 
-        verificationToken, 
+        username,
+        password: hashed,
+        firstName,
+        lastName,
+        email,
+        verificationToken,
         verificationTokenExpires
     });
 
     try {
         const savedUser = await user.save();
-        
+
         // res.send('Registered!');
         const appDomain = process.env.APP_DOMAIN;
-        const verificationUrl = `${appDomain}/verify-email/${verificationToken}`; 
+        const verificationUrl = `${appDomain}/verify-email/${verificationToken}`;
         console.log(verificationUrl);
         await transporter.sendMail({
             from: {
@@ -127,13 +127,13 @@ exports.register = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: 'Error saving user', error: err.message });
     }
-    
-    }
+
+}
 
 
 exports.login = async (req, res) => {
     const { username, password } = req.body;
-    try{
+    try {
         const user = await User.findByUsername(username);
         if (!user) {
             return res.status(400).send('User not found');
@@ -146,13 +146,13 @@ exports.login = async (req, res) => {
         req.session.message = 'Welcome back';
         res.status(201).redirect('/dashboard');
     } catch (err) {
-        res.status(500).json({message: 'Error loggin in', error: err.message});
+        res.status(500).json({ message: 'Error loggin in', error: err.message });
     }
 }
 
 exports.logout = (req, res) => {
     req.session.destroy(() => {
-      res.redirect('/');
+        res.redirect('/');
     });
 }
 
@@ -182,12 +182,95 @@ exports.showForgotPassword = (req, res) => {
 }
 
 exports.forgotPassword = async (req, res) => {
-    const {email} = req.body;
-    try{ 
+    const { email } = req.body;
+    try {
         const user = await User.findByEmail(email);
-        // to be continued
+
+        if (user) {
+            const resetToken = crypto.randomBytes(32).toString('hex');
+
+            const hashedToken = crypto
+                .createHash('sha256')
+                .update(resetToken)
+                .digest('hex');
+
+            user.resetPasswordToken = hashedToken;
+            user.resetPasswordTokenExpires = Date.now() + 60 * 60 * 1000; //1 hour
+
+            await user.save();
+            const appDomain = process.env.APP_DOMAIN;
+            const resetUrl = `${appDomain}/reset-password/${resetToken}`;
+
+            await transporter.sendMail({
+                from: {
+                    name: 'QuizMaster',
+                    address: process.env.EMAIL_USER
+                },
+
+                to: user.email,
+
+                subject: 'Reset your QuizMaster password',
+
+                text: `
+                    You requested a password reset.
+
+                    Reset your password here:
+                    ${resetUrl}
+
+                    This link will expire in 1 hour.
+
+                    If you didn't request this, you can safely ignore this email.
+                `,
+
+                html: `
+                    <h2>Password reset</h2>
+
+                    <p>
+                        You requested a password reset for your QuizMaster account. Click the link below:
+                    </p>
+
+                    <p>
+                        <a href="${resetUrl}">
+                            Reset my password
+                        </a>
+                    </p>
+
+                    <p>
+                        This link will expire in 1 hour.
+                    </p>
+
+                    <p>
+                        If you didn't request a password reset,
+                        you can safely ignore this email.
+                    </p>
+                `
+            });
+        }
+        res.redirect('/login'); // to do: remove this and just add a "done" notification 
     }
-    catch {
-        
+    catch (err) {
+        console.error(err);
+        res.status(500).send('Something went wrong.');
     }
 }
+
+// exports.showResetPassword = (req, res) => {
+//     res.render('resetPassword', { error: null });
+// }
+
+// exports.resetPassword = async (req, res) => {
+//     const {email, newPassword} = req.body;
+//     try {
+//         const user = await User.findByEmail(email);
+        
+//         const newHashed = await bcrypt.hash(newPassword, 10);
+
+//         user.hashed = newHashed;
+//         user.save();
+//     }
+//     catch {
+
+//     }
+// }
+
+// to be continued

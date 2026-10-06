@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-//api routes (to do: get them protected - not available in public)
+//api routes
 router.use('/api/users', require('./api/users'))
 router.use('/api/quizzes', require('./api/quizzes'))
 router.use('/api/questions', require('./api/questions'))

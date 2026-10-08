@@ -254,23 +254,47 @@ exports.forgotPassword = async (req, res) => {
     }
 }
 
-// exports.showResetPassword = (req, res) => {
-//     res.render('resetPassword', { error: null });
-// }
+exports.showResetPassword = (req, res) => {
+    res.render('resetPassword', { 
+        error: null,
+        token: req.params.token
+    });
+}
 
-// exports.resetPassword = async (req, res) => {
-//     const {email, newPassword} = req.body;
-//     try {
-//         const user = await User.findByEmail(email);
-        
-//         const newHashed = await bcrypt.hash(newPassword, 10);
+exports.resetPassword = async (req, res) => {
+    const {newPassword, confirmedPassword} = req.body;
+    const {token} = req.params;
+    try {
+        if (newPassword !== confirmedPassword) {
+            return res.status(400).send(
+                'Passwords do not match.'
+            );
+        }
 
-//         user.hashed = newHashed;
-//         user.save();
-//     }
-//     catch {
+        const hashedToken = crypto
+            .createHash('sha256')
+            .update(token)
+            .digest('hex');
 
-//     }
-// }
+        const user = await User.findByResetPasswordToken(hashedToken);
 
-// to be continued
+        if (!user) {
+            return res.status(400).send(
+                'Invalid or expired password reset link.'
+            );
+        }
+
+        user.password = await bcrypt.hash(newPassword, 10);
+
+        user.resetPasswordToken = undefined;
+        user.resetPasswordTokenExpires = undefined;
+
+        await user.save();
+
+        res.redirect('/login');
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Something went wrong.');
+    }
+}

@@ -130,6 +130,13 @@ class User {
         })
     }
 
+    static async findByResetPasswordToken(resetPasswordToken){
+        return await UserModel.findOne({
+            resetPasswordToken: resetPasswordToken,
+            resetPasswordTokenExpires: { $gt: Date.now() }
+        })
+    }
+
     static async update(id, data) {
         return await UserModel.findByIdAndUpdate(id, data, { new: true });
     }

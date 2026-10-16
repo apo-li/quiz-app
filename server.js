@@ -1,22 +1,15 @@
 require('dotenv').config()
-
 const express = require("express")
 const mongoose = require('mongoose')
-
-//////
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const cookieParser = require('cookie-parser');
-
 const app = express()
 const path = require ('path')
-//////
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.static(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 async function start() {
@@ -42,8 +35,8 @@ db.once('open', ()=> console.log('Connected to Database'))
 
 app.use(express.json())
 
-////////////////////     cookies-session
-app.use(cookieParser());
+
+//// cookies-session ////
 
 app.use(session({
   secret: process.env.SECRET_KEY , 
@@ -60,9 +53,7 @@ app.use(session({
   }
 }));
 
-///// routes ///
+///// routes ////
 
 const routes = require('./routes');
 app.use(routes);
-
-app.listen(3000, ()=> console.log('Server Started'))

@@ -42,7 +42,6 @@ const userSchema = new mongoose.Schema({
     },
     quizzes:[{
         type: mongoose.SchemaTypes.ObjectId,
-        // ref: 'Quiz',   //or 'QuizModel'? 
         required: true
     }],
     signupDate: {

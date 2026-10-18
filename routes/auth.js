@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const authController = require('../controllers/auth');
-// const requireAuth = require('../middlewares/requireAuth');
 
 router.get ('/', authController.showHome)
 

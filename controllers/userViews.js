@@ -19,8 +19,8 @@ exports.showDashboard = async (req, res) => {
     }));
 
     await res.render('user/dashboard', {
-        message: message,
-        nth: nth,
+        message,
+        nth,
         username: loggedUser.firstName,
         quizzes: quizCards,
         error: null
@@ -30,10 +30,7 @@ exports.showDashboard = async (req, res) => {
 exports.showMyQuizzes = async (req, res) => {
     const { userId } = req.session;
     const { message } = req.session;
-    // const loggedUser = await User.findOne(userId);
     const quizzes = await Quiz.findByCreatorId(userId);
-
-    // const nth = (!quizzes.length) ? 'first' : 'next' ;
 
     const quizCards = quizzes.map(quiz => ({
         ...quiz.toObject(),
@@ -43,9 +40,7 @@ exports.showMyQuizzes = async (req, res) => {
     }));
 
     await res.render('user/myQuizzes', {
-        message: message,
-        // nth: nth,
-        // username: loggedUser.firstName,  
+        message: message, 
         quizzes: quizCards,
         error: null
     })

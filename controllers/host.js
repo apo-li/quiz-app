@@ -9,7 +9,7 @@ exports.showHost = async (req, res) => {
     //     const foundQuestion+i = await Question.findOne(questions[i])
     // }
 
-    const foundQuestions = await Question.findOne(questions[1]);
+    const foundQuestions = await Question.findOne(questions[0]);
 
     // const {answers} = foundQuestion;
     // for (i=0; i<4; i++){

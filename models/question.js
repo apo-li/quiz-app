@@ -79,6 +79,10 @@ class Question {
     static async findOne(id) {
         return await QuestionModel.findById(id)
     }
+
+    static async findByQuizId(quizId) {
+        return await QuestionModel.find({ quizId: quizId });
+    }
     
     static async update(id, data) {
         return await QuestionModel.findByIdAndUpdate(id, data, { new: true });

@@ -57,7 +57,7 @@ exports.create = async (req, res) => {
             questionNumber++;
         }
 
-        console.log(questionArray);
+        // console.log(questionArray);
 
         // 3. Save questions
         const questionDocs = await Question.insertMany(questionArray);

@@ -7,7 +7,7 @@ exports.showViewQuiz = async (req, res) => {
     const {title, description, creator} = refQuiz;
 
     const questions = await Question.findByQuizId(quizId);
-    console.log("questions:", questions);
+    // console.log("questions:", questions);
 
     const questionObjects = questions.map(question => ({
             ...question.toObject(),
@@ -24,5 +24,3 @@ exports.showViewQuiz = async (req, res) => {
         questions: questionObjects
     })
 }
-
-//just experimenting with ejs yet

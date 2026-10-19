@@ -29,4 +29,4 @@ exports.showHost = async (req, res) => {
     })
 }
 
-//just experimenting with ejs yet
+//just experimenting with ejs yet - not a usable file right now

@@ -13,6 +13,7 @@
     --color-btn-1: #1F6F78;
     --color-btn-2: #FAD000;
 
+    --color-links-3: #008196;
 
     --color-pr: #0f4c5c;
     --color-sec: #83c5be;
@@ -172,7 +173,7 @@ tr:last-child td {
 
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
     /* grid-template-rows: masonry; */
     /* grid-auto-flow: dense; */
     gap: 1rem;
@@ -194,7 +195,8 @@ tr:last-child td {
     /* width: 100%; */
     /* min-width: 15rem; */
     /* margin-bottom: 1rem;  */
-
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
@@ -230,7 +232,7 @@ h1 {
 
 h4 {
     /* text-decoration: underline; */
-    margin-top: 50px;
+    /* margin-top: 50px; */
 }
 
 .cards-container-title {
@@ -240,38 +242,104 @@ h4 {
     /* border: 1px solid rgba(0,0,0,0.1); */
     /* border-radius: 12px; */
     /* margin-bottom:5px; */
-    padding: 5px;
+    /* padding: 5px; */
+    /* align-items: flex-end; */
 }
 
 .cards-container-title h4 {
     font-weight: 600;
 }
 
-.cards-container-title a {
+/* .cards-container-title a {
     font-weight: 600;
     color: rgba(0, 0, 0, 0.9);
     position: relative;
     top: 5px;
 
+} */
+
+.card-dots:hover{
+    scale: 1.2;
+    transition: all 0.2s ease;
 }
 
 .mybtn {
-    margin: auto;
+    /* margin: auto; */
     /* position: relative; */
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: auto;
+    /* margin-bottom: 40px; */
     display: block;
-    width: 100px;
-    height: 45px;
+    width: 140px;
+    height: 40px;
     color: white;
     /* background-color: #515C85; */
-    background-color: #008196;
+    /* background-color: #008196; */
     /* background-color: #6DAA0E; */
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: large;
-    font-weight: 600;
+    font-weight: 500;
     /* justify-self: center; */
     /* margin: auto; */
+}
+
+.mybtn {
+    padding: 7px 14px;
+    border-radius: 12px;
+}
+
+.icon-btn {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    /* font-size: large;
+    font-weight: 600; */
+    border: none;
+    color: var(--color-pr);
+}
+
+.icon-btn:hover{
+    color: var(--color-pr);
+    background-color: white;
+    /* border: 1px solid var(--color-sec); */
+    scale: 1.2;
+    transition: all 0.2s ease;
+}
+
+.card-btn-host:hover{
+    background-color: var(--color-pr);
+    border-color: var(--color-pr);
+}
+
+.card-btn-host{
+    background-color: var(--color-btn-2);
+    border-color: var(--color-btn-2);
+    color: var(--color-text);
+
+    /* color: #297483; */
+    /* font-weight: 600; */
+    /* background-color: #008196; */
+    /* display: flex; */
+    flex-direction: column;
+    align-items: baseline; 
+}
+
+.btn-create:hover{
+    background-color: var(--color-pr);
+    border-color: var(--color-pr);
+}
+
+.btn-create{
+    background-color: var(--color-links);
+    border-color: var(--color-links);
+    /* color: var(--color-text); */
+
+    /* color: #297483; */
+    /* font-weight: 600; */
+    /* background-color: #008196; */
+    /* display: flex; */
+    flex-direction: column;
+    align-items: baseline; 
 }
 
 .form {
@@ -300,6 +368,8 @@ h4 {
     /* font-size: large; */
     /* font-weight: 600; */
 }
+
+
 
 .search-click input {
     background: transparent;
